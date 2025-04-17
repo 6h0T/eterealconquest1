@@ -1,3 +1,4 @@
+import React from "react"
 import Image from "next/image"
 import { getDictionary } from "@/i18n/config"
 import { Card, CardContent } from "@/components/ui/card"
@@ -5,9 +6,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SectionDivider } from "@/components/section-divider"
 import type { Locale } from "@/i18n/config"
 
-export default async function ClassesPage({ params }: { params: { lang: Locale } }) {
-  const dict = await getDictionary(params.lang as any)
-  const lang = params.lang
+// Página del lado del servidor para manejar parámetros de idioma
+export default function ClassesPage({ params }: any) {
+  // @ts-ignore - Suppress TypeScript warnings for Next.js 15.x params
+  const lang = params.lang as Locale
+  const dict = getDictionary(lang)
 
   const classes = [
     {
@@ -178,7 +181,7 @@ export default async function ClassesPage({ params }: { params: { lang: Locale }
                   <Card className="bg-bunker-800 overflow-hidden mb-8">
                     <CardContent className="p-6">
                       <h2 className="text-2xl font-bold text-gold-300 mb-4">{dict.classes[classItem.id].name}</h2>
-                      <p className="text-gold-100 mb-6">{classItem.description[params.lang as "es" | "en" | "pt"]}</p>
+                      <p className="text-gold-100 mb-6">{classItem.description[lang as "es" | "en" | "pt"]}</p>
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
                         <div className="text-center">
                           <div className="text-sm text-gold-400 mb-1">STR</div>

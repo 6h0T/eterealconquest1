@@ -5,19 +5,14 @@ import { motion } from "framer-motion"
 import { getApiUrl, createFetchOptions } from "@/lib/api-utils"
 
 const tabs = [
-  { key: "resets", label: "Resets" },
   { key: "level", label: "Nivel" },
-  { key: "master", label: "Master Level" },
   { key: "online", label: "Online" },
   { key: "killers", label: "PK" },
   { key: "guilds", label: "Guilds" },
-  { key: "grandresets", label: "Grand Resets" },
-  { key: "gens", label: "Gens" },
-  { key: "votes", label: "Votos" },
 ]
 
 export function RankingsTabs() {
-  const [activeTab, setActiveTab] = useState("resets")
+  const [activeTab, setActiveTab] = useState("level")
   const [data, setData] = useState<any[]>([])
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(true)
@@ -119,7 +114,7 @@ export function RankingsTabs() {
                   <td className="px-4 py-2">{i + 1}</td>
                   {Object.values(entry).map((val, j) => (
                     <td key={j} className="px-4 py-2">
-                      {val}
+                      {val !== null && val !== undefined ? String(val) : ""}
                     </td>
                   ))}
                 </tr>
